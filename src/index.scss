@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Recursive:wght,CRSV@370,0&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+#root {
+  margin: 0 auto;
+  text-align: left;
+}
+
+
+* {
+  font-family: 'Recursive', monospace;
+  font-weight: 300;
+  font-style: normal;
+}
+
+
