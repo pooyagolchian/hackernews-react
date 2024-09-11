@@ -15,7 +15,7 @@ interface Story {
   time: number
 }
 
-// Fetch top story IDs from Hacker News
+
 const fetchTopStoriesIds = async () => {
   const { data } = await axios.get(
     'https://hacker-news.firebaseio.com/v0/topstories.json',
@@ -23,7 +23,6 @@ const fetchTopStoriesIds = async () => {
   return data
 }
 
-// Fetch paginated stories using top story IDs
 const fetchStories = async ({
   pageParam = 1,
   queryKey,
@@ -96,7 +95,7 @@ const App = () => {
 
   const [isSearching, setIsSearching] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
-  const loadMoreRef = useRef<HTMLDivElement | null>(null) // Reference for the observer
+  const loadMoreRef = useRef<HTMLDivElement | null>(null)
 
   const {
     data: storyIds,
