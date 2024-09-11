@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { useQuery, useInfiniteQuery } from 'react-query'
 import { useUIStore } from './store'
 import axios from 'axios'
@@ -84,7 +84,7 @@ const fetchSearchResults = async ({
   }
 }
 
-const App: React.FC = () => {
+const App = () => {
   const {
     searchQuery,
     setSearchQuery,
@@ -104,11 +104,11 @@ const App: React.FC = () => {
     isError: idsError,
   } = useQuery('topStories', fetchTopStoriesIds, {
     onError: () =>
+      idsError ??
       setErrorMessage('Failed to fetch top stories. Please try again.'),
   })
 
   const {
-    data: topStoriesData,
     fetchNextPage: fetchNextTopStoriesPage,
     hasNextPage: hasNextTopStoriesPage,
     isFetchingNextPage: isFetchingNextTopStoriesPage,
@@ -126,7 +126,6 @@ const App: React.FC = () => {
   })
 
   const {
-    data: searchData,
     fetchNextPage: fetchNextSearchPage,
     hasNextPage: hasNextSearchPage,
     isFetchingNextPage: isFetchingNextSearchPage,
@@ -143,7 +142,6 @@ const App: React.FC = () => {
       setErrorMessage('Failed to fetch search results. Please try again.'),
   })
 
-  // Debounced search handler
   const handleSearchChange = useCallback(
     debounce((query: string) => {
       setSearchQuery(query)
