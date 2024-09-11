@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { persist, devtools } from 'zustand/middleware'
 
-const EXPIRATION_TIME = 24 * 60 * 60 * 1000 // 24 hours in milliseconds
+const EXPIRATION_TIME = 24 * 60 * 60 * 1000 
 
 interface Story {
   id: number
@@ -9,15 +9,15 @@ interface Story {
   url: string
   score: number
   by: string
-  time: number // UNIX timestamp for the story creation time
+  time: number 
 }
 
 interface UIState {
   searchQuery: string
   stories: Story[]
-  searchStories: Story[] // For storing search results
+  searchStories: Story[] 
   page: number
-  searchPage: number // Page number for search pagination
+  searchPage: number 
   setSearchQuery: (query: string) => void
   addStories: (stories: Story[]) => void
   addSearchStories: (stories: Story[]) => void
@@ -27,7 +27,7 @@ interface UIState {
   setSearchPage: (page: number) => void
 }
 
-// Custom storage handler to manage expiration
+
 const customStorage = {
   getItem: (name: string) => {
     const item = localStorage.getItem(name)
@@ -36,9 +36,9 @@ const customStorage = {
     const { value, timestamp } = JSON.parse(item)
     const now = new Date().getTime()
 
-    // Check if the stored data has expired
+    
     if (now - timestamp > EXPIRATION_TIME) {
-      localStorage.removeItem(name) // Clear expired data
+      localStorage.removeItem(name) 
       return null
     }
     return value
@@ -72,7 +72,7 @@ export const useUIStore = create<UIState>()(
           const existingStories = get().stories
           const updatedStories = [...existingStories, ...newStories]
             .filter((story, index, self) => self.findIndex(s => s.id === story.id) === index)
-            .sort((a, b) => b.time - a.time) // Sort stories by time (newest first)
+            .sort((a, b) => b.time - a.time) 
 
           set(() => ({ stories: updatedStories }))
         },
@@ -81,7 +81,7 @@ export const useUIStore = create<UIState>()(
           const existingStories = get().searchStories
           const updatedStories = [...existingStories, ...newStories]
             .filter((story, index, self) => self.findIndex(s => s.id === story.id) === index)
-            .sort((a, b) => b.time - a.time) // Sort search stories by time (newest first)
+            .sort((a, b) => b.time - a.time) 
 
           set(() => ({ searchStories: updatedStories }))
         },
@@ -93,7 +93,7 @@ export const useUIStore = create<UIState>()(
       }),
       {
         name: 'ui-store',
-        storage: customStorage, // Use custom storage handler with expiration
+        storage: customStorage, 
       }
     )
   )

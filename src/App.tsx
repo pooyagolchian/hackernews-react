@@ -167,10 +167,10 @@ const App: React.FC = () => {
       (entries) => {
         if (entries[0].isIntersecting && hasNextPage) {
           console.log('Fetching next page...')
-          fetchNextPage() // Automatically load more stories when the user scrolls near the bottom
+          fetchNextPage()
         }
       },
-      { threshold: 0.1 }, // Adjust threshold to make the observer more responsive
+      { threshold: 0.1 },
     )
 
     if (loadMoreRef.current) {
@@ -209,7 +209,7 @@ const App: React.FC = () => {
         !searchLoading &&
         !errorMessage && <p className="text-center">No stories found.</p>}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {!storiesLoading &&
           !searchLoading &&
           storiesToRender.map((story: Story) => (
@@ -224,7 +224,7 @@ const App: React.FC = () => {
                 className="block"
               >
                 <div className="p-4">
-                  <h2 className="text-3xl font-semibold mb-2 text-gray-800 group-hover:text-orange-800 transition-colors">
+                  <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold mb-2 text-gray-800 group-hover:text-orange-800 transition-colors">
                     {story.title}
                   </h2>
                   <p className="text-sm text-gray-600 mb-1">
@@ -239,12 +239,13 @@ const App: React.FC = () => {
           ))}
       </div>
 
-      {/* Observer Trigger Point */}
-
-      <div ref={loadMoreRef} className="h-10 mt-10" />
+      <div
+        ref={loadMoreRef}
+        className="h-50 d-flex justify-center align-middle my-36"
+      />
 
       {isFetchingNextPage && (
-        <p className="text-center mt-4">Loading more stories...</p>
+        <p className="text-center my-10">Loading more stories...</p>
       )}
     </div>
   )
